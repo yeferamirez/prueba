@@ -4,24 +4,17 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import model.Bet;
 import model.Roulette;
 
 public interface RouletteBusinnes {
-
-	Roulette createRoulette(Roulette roulette);
-
+	long createRoulette(Roulette roulette);
 	String openRoulette(long id);
-
-	void bet(long idRoulette, long idUser, long moneyBet, String color, long number);
-
-	String closeBet(long id);
-
-	void searchBets(long idRoulette);
-
+	String bet(Bet bet,long idRoulette, long idUser);
+	List<Bet> searchBets(long idRoulette);
 	List<Roulette> searchRoulettes();
-
 	ResponseEntity<Roulette> searchRoulette(long id);
-
-	deleteRoulette();
-
+	String deleteRoulette(long id);
+	ResponseEntity<Roulette> updateRoulette(Roulette roulette);
+	
 }

@@ -19,16 +19,16 @@ public class Roulette {
 	@Id
 	@SequenceGenerator(name="idroulette",sequenceName = "idroulette",allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "idroulette")
-	private int id;
+	private long id;
 	
 	@Column(name="state")
 	private String state;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

@@ -18,7 +18,7 @@ public class Bet {
 	@Id
 	@SequenceGenerator(name="idbet",sequenceName = "idbet",allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "idbet")
-	private int id;
+	private long id;
 	
 	@Column(name="color")
 	private String color;
@@ -29,11 +29,11 @@ public class Bet {
 	@Column(name="money")
 	private int money;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
