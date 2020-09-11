@@ -1,11 +1,13 @@
 package business;
 
 import java.util.List;
-import java.util.Optional;import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import Define.Colors;
-import Define.Message;
+
+import define.Colors;
+import define.Message;
 import exceptions.RouletteException;
 import model.Bet;
 import model.Roulette;
@@ -31,16 +33,19 @@ public class RouletteBusinessImpl implements RouletteBusinnes {
 
 	@Override
 	public List<Bet> searchBets(long idRoulette) {
-		if (idRoulette != 0) {
-			List<Bet> betList = betRepository.listRouletteSearch(idRoulette);
-			roulette = rouletteRepository.findById(idRoulette).get();
-			roulette.setState("CLOSE");
-			rouletteRepository.save(roulette);
-			return betList;
-		} else {
-			new RouletteException("EL id de laa ruleta no puede ser cero");
-			return null;
+
+		try {
+			if (idRoulette != 0) {
+				List<Bet> betList = betRepository.listRouletteSearch(idRoulette);
+				roulette = rouletteRepository.findById(idRoulette).get();
+				roulette.setState("CLOSE");
+				rouletteRepository.save(roulette);
+				return betList;
+			}
+		} catch (Exception e) {
+			new RouletteException(e.toString());
 		}
+		return null;
 	}
 
 	@Override
@@ -84,6 +89,8 @@ public class RouletteBusinessImpl implements RouletteBusinnes {
 				if (roulette.getState().equalsIgnoreCase((Message.OPEN.toString()))) {
 					betRepository.save(bet);
 					user.setId(idUser);
+					user.setBetList(bet);
+					roulette.setBetList(bet);
 					userRepository.save(user);
 					return Message.BETSUCESS.toString();
 				}
@@ -118,7 +125,12 @@ public class RouletteBusinessImpl implements RouletteBusinnes {
 
 	@Override
 	public String deleteRoulette(long id) {
-		rouletteRepository.deleteById(id);
+		try {
+			rouletteRepository.deleteById(id);
+
+		} catch (Exception e) {
+			new RouletteException(e.toString());
+		}
 		return Message.ROULETTEDELETE.toString();
 	}
 

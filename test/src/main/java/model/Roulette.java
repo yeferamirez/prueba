@@ -1,28 +1,40 @@
 package model;
 
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name="roulette")
+@Table(name = "roulette")
 public class Roulette {
 
 	@Id
-	@SequenceGenerator(name="idroulette",sequenceName = "idroulette",allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "idroulette")
+	@Column(name = "idroulette")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
-	@Column(name="state")
+
+	@Column
 	private String state;
+
+	@OneToMany(mappedBy = "roulette")
+	Bet betList;
+
+
+	public Bet getBetList() {
+		return betList;
+	}
+
+	public void setBetList(Bet betList) {
+		this.betList = betList;
+	}
 
 	public long getId() {
 		return id;
@@ -39,8 +51,5 @@ public class Roulette {
 	public void setState(String state) {
 		this.state = state;
 	}
-	
-	
-	
-	
+
 }

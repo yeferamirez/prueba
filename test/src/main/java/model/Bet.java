@@ -5,29 +5,36 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name="bet")
+@Table(name = "bet")
 public class Bet {
 
 	@Id
-	@SequenceGenerator(name="idbet",sequenceName = "idbet",allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "idbet")
+	@Column(name = "idbet")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
-	@Column(name="color")
+
+	@Column
 	private String color;
-	
-	@Column(name="number")
+
+	@Column
 	private int number;
-	
-	@Column(name="money")
+
+	@Column
 	private int money;
+
+	@ManyToOne
+	@JoinColumn(name = "user_iduser")
+	private User user;
+	@ManyToOne
+	@JoinColumn(name = "roulette_idroulette")
+	private Roulette roulette;
 
 	public long getId() {
 		return id;
@@ -60,8 +67,21 @@ public class Bet {
 	public void setMoney(int money) {
 		this.money = money;
 	}
-	
-	
-	
-	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Roulette getRoulette() {
+		return roulette;
+	}
+
+	public void setRoulette(Roulette roulette) {
+		this.roulette = roulette;
+	}
+
 }

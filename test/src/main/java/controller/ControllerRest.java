@@ -25,13 +25,6 @@ public class ControllerRest {
 	@Autowired
 	RouletteBusinessImpl rouletteBusiness;
 
-	
-	
-	@GetMapping
-	public String hola() {
-		return "hola";
-	}
-	
 	@PutMapping("/Bet/{idUser}/{idRoulette}")
 	public ResponseEntity<String> replaceEmployee(@RequestBody Bet newBet, @PathVariable("idUser") Long idUser,
 			@PathVariable("idRoulette") Long idRoulette) {
